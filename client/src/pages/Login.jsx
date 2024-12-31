@@ -10,22 +10,33 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Login = () => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [disabled, setDisabled] = useState(false);
+
+
+    useEffect(() => {
+      if ( password.trim() === "" ||  email.trim() === "") {
+          setDisabled(true);
+      } else {
+          setDisabled(false);
+      }
+  }, [password, email]);
     const handleSubmit = ()=>{
-        console.log(username, password, email);
+
+
+      console.log(username, password, email);
         setEmail("");
         setUsername("");
         setPassword("");
     }
   return (
     <div className="w-screen h-screen flex items-center justify-center">    
-
     <Tabs defaultValue="login" className="w-[400px]">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="login">Login</TabsTrigger>
@@ -34,12 +45,13 @@ const Login = () => {
       <TabsContent value="login">
         <Card>
           <CardHeader>
-            <CardTitle className="text-center text-xl">Login</CardTitle>
+            <CardTitle >Sign In to your ccount</CardTitle>
+            <CardDescription>Enter your email and password to continue</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="space-y-1">
-              <Label htmlFor="username">Username</Label>
-              <Input id="username" placeholder="Enter Your Username" value={username} onChange={(e)=> setUsername(e.target.value)} />
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" required placeholder="Enter Your Email" value={email} onChange={(e)=> setEmail(e.target.value)} />
             </div>
             <div className="space-y-1">
               <Label htmlFor="password">Password</Label>
@@ -47,14 +59,15 @@ const Login = () => {
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full" onClick={handleSubmit}>Submit</Button>
+            <Button className="w-full" onClick={handleSubmit} disabled={disabled}>Sign In</Button>
           </CardFooter>
         </Card>
       </TabsContent>
       <TabsContent value="signup">
         <Card>
           <CardHeader>
-            <CardTitle className="text-center text-xl">Sign Up</CardTitle>
+            <CardTitle>Create a new account</CardTitle>
+            <CardDescription>Enter your details to get started</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="space-y-1">
@@ -71,7 +84,7 @@ const Login = () => {
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full" onClick={handleSubmit}>Submit</Button>
+            <Button className="w-full" onClick={handleSubmit} disabled={disabled}>Submit</Button>
           </CardFooter>
         </Card>
       </TabsContent>
