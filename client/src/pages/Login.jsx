@@ -18,6 +18,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [disabled, setDisabled] = useState(false);
+    const [activeTab, setActiveTab] = useState("login");
 
 
     useEffect(() => {
@@ -27,6 +28,12 @@ const Login = () => {
           setDisabled(false);
       }
   }, [password, email]);
+
+  useEffect(() => {
+    setUsername("");
+    setPassword("");
+    setEmail("");
+}, [activeTab]);
     const handleSubmit = ()=>{
 
 
@@ -37,7 +44,7 @@ const Login = () => {
     }
   return (
     <div className="w-screen h-screen flex items-center justify-center">    
-    <Tabs defaultValue="login" className="w-[400px]">
+    <Tabs defaultValue="login" className="w-[400px]" onValueChange={setActiveTab}>
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="login">Login</TabsTrigger>
         <TabsTrigger value="signup">Sign Up</TabsTrigger>
