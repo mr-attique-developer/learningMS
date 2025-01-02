@@ -10,10 +10,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "@/context/auth";
 const Login = () => {
 
     const [username, setUsername] = useState("");
@@ -23,6 +24,8 @@ const Login = () => {
     const [activeTab, setActiveTab] = useState("login");
     const {toast} = useToast()
     const navigate = useNavigate()
+    const {user,setUser} = useContext(AuthContext)
+    console.log(user)
 
 
 
@@ -47,14 +50,17 @@ try {
   if(activeTab === "login"){
     const response = await axios.post("http://localhost:5000/api/v1/auth/login",{email,password} )
     console.log(response.data)
+
     localStorage.setItem("token", response.data.token)
     localStorage.setItem("user", JSON.stringify(response.data.user))
+    // setUser(response.data.user)
     navigate("/")
     toast({title: response.data.message, status: "success"})
 
   }else{
-    const response = await axios.post("http://localhost:5000/api/v1/auth/register",{email,password,username} )
+    const response = await axios.post("http://localhost:5000/api/v1/auth/register",{email,password,username, role:"user"} )
     console.log(response.data)
+    // setUser(response.data.user)
     localStorage.setItem("user", JSON.stringify(response.data.user))
     setActiveTab("login")
     toast({title: response.data.message, status: "success"})
