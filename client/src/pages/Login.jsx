@@ -11,7 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEffect, useState } from "react";
-
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
 
     const [username, setUsername] = useState("");
@@ -19,6 +21,11 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [disabled, setDisabled] = useState(false);
     const [activeTab, setActiveTab] = useState("login");
+    const {toast} = useToast()
+    const navigate = useNavigate()
+
+
+
 
 
     useEffect(() => {
@@ -34,9 +41,30 @@ const Login = () => {
     setPassword("");
     setEmail("");
 }, [activeTab]);
-    const handleSubmit = ()=>{
+    const handleSubmit = async()=>{
+    
+try {
+  if(activeTab === "login"){
+    const response = await axios.post("http://localhost:5000/api/v1/auth/login",{email,password} )
+    console.log(response.data)
+    localStorage.setItem("token", response.data.token)
+    localStorage.setItem("user", JSON.stringify(response.data.user))
+    navigate("/")
+    toast({title: response.data.message, status: "success"})
 
+  }else{
+    const response = await axios.post("http://localhost:5000/api/v1/auth/register",{email,password,username} )
+    console.log(response.data)
+    localStorage.setItem("user", JSON.stringify(response.data.user))
+    setActiveTab("login")
+    toast({title: response.data.message, status: "success"})
+  }
 
+} catch (error) {
+  console.log(error.response.data.message)
+  toast({variant: "destructive",title: error.response.data.message, status: "error"})
+  console.log(error)
+}
       console.log(username, password, email);
         setEmail("");
         setUsername("");
