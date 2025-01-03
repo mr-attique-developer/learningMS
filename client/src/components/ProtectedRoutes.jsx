@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, Navigate } from 'react-router-dom';
+import { useLocation, Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoutes = ({ element }) => {
   const location = useLocation();
@@ -17,8 +17,9 @@ const ProtectedRoutes = ({ element }) => {
   if (user?.role === "instructor" && !location.pathname.includes("instructor")) {
     return <Navigate to="/instructor" />;
   }
+ 
 
-  return element;
+  return <Outlet/>;
 };
 
 export default ProtectedRoutes;
