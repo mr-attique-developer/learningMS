@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectItem, SelectTrigger, SelectContent, SelectValue } from '@/components/ui/select';
@@ -28,7 +28,10 @@ const CourseLandingPage = () => {
     <div>
       <Card>
         <CardHeader>
+          <CardTitle>
+
           <h1>Course Landing Page</h1>
+          </CardTitle>
         </CardHeader>
         <CardContent>
           {courseLandingPageFormControls.map((control, index) => {
@@ -36,7 +39,7 @@ const CourseLandingPage = () => {
               case 'input':
                 return (
                   <div key={index} className="space-y-1">
-                    <label htmlFor={control.name}>{control.label}</label>
+                    <label htmlFor={control.name} className="font-medium">{control.label}</label>
                     <Input
                       id={control.name}
                       name={control.name}
@@ -50,7 +53,7 @@ const CourseLandingPage = () => {
               case 'textarea':
                 return (
                   <div key={index} className="space-y-1">
-                    <label htmlFor={control.name}>{control.label}</label>
+                    <label htmlFor={control.name} className="font-medium">{control.label}</label>
                     <Textarea
                       id={control.name}
                       name={control.name}
@@ -63,7 +66,7 @@ const CourseLandingPage = () => {
               case 'select':
                 return (
                   <div key={index} className="space-y-4">
-                    <label htmlFor={control.name} className='font-bold'>{control.label}</label>
+                    <label htmlFor={control.name} className="font-medium" >{control.label}</label>
                     <Select
                       id={control.name}
                       name={control.name}
