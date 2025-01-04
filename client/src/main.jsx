@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { Toaster } from './components/ui/toaster'
 import AuthContextProvider from './context/auth'
 import { ThemeProvider } from './components/theme-provider'
+import InstructorProvider from "./context/Instructor"
 
 
 createRoot(document.getElementById('root')).render(
@@ -13,8 +14,15 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
     <AuthContextProvider>
       <ThemeProvider>
+       
+          <InstructorProvider>
+
+
+
 
 <App/>
+          </InstructorProvider>
+     
       </ThemeProvider>
     <Toaster />
     </AuthContextProvider>

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '../../ui/card'
 import { Link } from 'react-router-dom'
-import { Button } from '../ui/button'
+import { Button } from '../../ui/button'
 import {
     Table,
     TableBody,
@@ -10,11 +10,9 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { useNavigate } from 'react-router-dom'
 import { DeleteIcon, Edit } from 'lucide-react'
 
 const InstructorCourses = () => {
-    const navigate = useNavigate()
   return (
    <Card >
     <CardHeader className="flex justify-between flex-col  sm:flex-row  items-center ">

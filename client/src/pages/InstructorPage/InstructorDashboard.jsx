@@ -1,9 +1,9 @@
 import DashboardComponent from "@/components/instructor-view/DashboardComponent";
-import InstructorCourses from "@/components/instructor-view/InstructorCourses";
+import InstructorCourses from "@/components/instructor-view/courses/InstructorCourses";
 import { Button } from "@/components/ui/button";
 import { BarChart, Book, LogOut } from "lucide-react";
 import React, { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 const InstructorDashboard = () => {
   const [activeTab, setActiveTab] = useState("dashboard");
