@@ -17,11 +17,18 @@ const CourseLandingPage = () => {
     }));
   };
 
+  const handleSelectChange = (name, value) => {
+    setCourseLandingFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       <Card>
         <CardHeader>
-          <h1 className='font-extrabold'>Course Landing Page</h1>
+          <h1>Course Landing Page</h1>
         </CardHeader>
         <CardContent>
           {courseLandingPageFormControls.map((control, index) => {
@@ -55,13 +62,13 @@ const CourseLandingPage = () => {
                 );
               case 'select':
                 return (
-                  <div key={index} className="space-y-1">
-                    <label htmlFor={control.name}>{control.label}</label>
+                  <div key={index} className="space-y-4">
+                    <label htmlFor={control.name} className='font-bold'>{control.label}</label>
                     <Select
                       id={control.name}
                       name={control.name}
                       value={courseLandingFormData[control.name] || ''}
-                      onChange={(value) => handleChange({ target: { name: control.name, value } })}
+                      onValueChange={(value) => handleSelectChange(control.name, value)}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder={control.placeholder} />
